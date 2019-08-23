@@ -34,7 +34,7 @@ from rest_framework.authentication import SessionAuthentication
 
 admin.site.site_header = "API administration"
 admin.site.site_title = "API administration"
-admin.site.index_title = "Welcome to API administration"
+admin.site.index_title = "Template API Administration"
 admin.site.site_url = "/docs"
 admin.site.__class__ = OTPAdminSite
 
@@ -66,5 +66,12 @@ urlpatterns = [
         route='api/system/',
         view=include('apps.api.urls'),
         name='system_api'
+    ),
+
+    # CRUD API
+    path(
+        route='api/product/',
+        view=include('apps.crud_api.urls'),
+        name='crud_api'
     ),
 ]

@@ -3,6 +3,8 @@
 - two factor auth for django admin interface;
 - best practices applied for configuration split and project structure;
 - django generic permission system integrated;
+- crud api with custom overwrite of methods and filter integration for demo purpose (please don't use this naming)
+- manually create a migration with python script;
 
 ## Requirements
 It is assumed that:

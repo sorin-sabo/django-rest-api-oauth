@@ -8,4 +8,6 @@ from apps.api.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('id', 'name', 'surname', 'email')
+        read_only_fields = ('id',)
+
