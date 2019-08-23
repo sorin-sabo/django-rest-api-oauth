@@ -55,6 +55,7 @@ LOGIN_URL = '/admin/login/'
 
 # ---------------------------------------------- STATIC FILE CONFIGURATION ---------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = 'static'
 STATIC_URL = '/static/'
 # ---------------------------------------------- END STATIC FILE CONFIGURATION -----------------------------------------
 
@@ -128,6 +129,8 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 
     # Admin panel
+    'jet.dashboard',
+    'jet',
     'django.contrib.admin',
 
     # Admin security
@@ -237,6 +240,42 @@ REDOC_SETTINGS = {
     'HIDE_HOSTNAME': False,
     'PATH_IN_MIDDLE': True,
 }
+
+# ---------------------------------------------- JET CONFIGURATION -----------------------------------------------------
+JET_DEFAULT_THEME = 'light-gray'
+
+JET_THEMES = [
+    {
+        'theme': 'default', # theme folder name
+        'color': '#47bac1', # color of the theme's button in user menu
+        'title': 'Default' # theme title
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+]
 
 # ---------------------------------------------- OTP CONFIGURATION -----------------------------------------------------
 OTP_TOTP_ISSUER = 'Google Authenticator'

@@ -1,3 +1,5 @@
+# Django Template Project
+
 ## Description
 - integration of external service oauth2 with Auth0 or Cognito (other might be possible with current token validation);
 - two factor auth for django admin interface;
@@ -29,11 +31,13 @@ Fallow next steps in the exact mentioned order:
 - `pip install -r requirements.txt` - install requirements inside venv;
 - fill local.py using your database and external auth service credentials;
 - `python manage.py migrate` - create a local test database with the name given in local.py
+- `python manage.py collectstatic` - collect static files to settings.production.STATIC_ROOT folder
 
 ## Run
-    * python manage.py runserver <optional_port_id>
-    * localhost:port_id/api/ - endpoints
-    * localhost:port_id/docs/ - documentation
+    python manage.py runserver <optional_port_id>
+    localhost:<port_id>/admin/ - admin login page
+    localhost:<port_id>/api/   - endpoints
+    localhost:<port_id>/docs/  - documentation
     
 ## Files
 * `DjangoTemplateProject`: Django settings files
