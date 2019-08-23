@@ -6,36 +6,36 @@ from django.conf import settings
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-# local django
-from apps.advisor_api.models import AwAdvisor
+# local api
+from apps.warehouse_api.models import Product
 
 
-class AdvisorManagementTests(APITestCase):
+class ProductManagementTests(APITestCase):
     """
-    Test CRUD operations for advisors
-    ( GET {{apiUrl}}/api/advisor/list/ ) - List
-    ( GET {{apiUrl}}/api/advisor/{advisor_id} ) - Read
-    ( PUT {{apiUrl}}/api/advisor/{advisor_id} ) - Update
-    ( DELETE {{apiUrl}}/api/advisor/{advisor_id} ) - Delete
-    ( POST {{apiUrl}}/api/advisor/register/ ) - Create
+    Test CRUD operations for products
+    ( GET {{apiUrl}}/api/product/list/ ) - List
+    ( GET {{apiUrl}}/api/product/{product_id} ) - Read
+    ( PUT {{apiUrl}}/api/product/{product_id} ) - Update
+    ( DELETE {{apiUrl}}/api/product/{product_id} ) - Delete
+    ( POST {{apiUrl}}/api/product/create/ ) - Create
 
-    @required: settings.FIRM_TOKEN - use a valid firm admin access token
-    @required: valid advisor_id on setUp function
+    @required: settings.TOKEN - use a access / id TOKEN
+    @required: valid product_id on setUp function
     """
 
     def setUp(self):
-        self.client.credentials(HTTP_AUTHORIZATION=settings.FIRM_TOKEN)
-        self.advisor_id = 1
+        self.client.credentials(HTTP_AUTHORIZATION=getattr(settings, 'TOKEN', ''))
+        self.product_id = 6
 
     def tearDown(self):
         self.client.logout()
 
-    def test_advisor_list(self):
+    def test_product_list(self):
         """
-        Ensure we can get advisors list for a firm admin.
+        Ensure we can get products list.
         """
 
-        url = reverse('advisor_list')
+        url = reverse('product_list')
 
         response = self.client.get(url, format='json')
         self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED])
@@ -47,20 +47,19 @@ class AdvisorManagementTests(APITestCase):
             if len(response.data) > 0:
                 first_item = response.data[0]
                 self.assertTrue('id' in first_item)
-                self.assertTrue('external_id' in first_item)
-                self.assertTrue('first_name' in first_item)
-                self.assertTrue('last_name' in first_item)
-                self.assertTrue('email' in first_item)
-                self.assertTrue('all_clients_privilege' in first_item)
+                self.assertTrue('uuid' in first_item)
+                self.assertTrue('name' in first_item)
+                self.assertTrue('type' in first_item)
+                self.assertTrue('price' in first_item)
         else:
             print('UNAUTHORIZED')
     
-    def test_advisor_details(self):
+    def test_product_details(self):
         """
-        Ensure advisor details are returned correctly.
+        Ensure product details are returned correctly.
         """
 
-        url = reverse('advisor_details', kwargs={'advisor_id': self.advisor_id})
+        url = reverse('product_details', kwargs={'product_id': self.product_id})
 
         response = self.client.get(url, format='json')
         self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED])
@@ -69,85 +68,30 @@ class AdvisorManagementTests(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertTrue(isinstance(response.data, dict))
 
-            advisor = response.data
-            self.assertTrue('id' in advisor)
-            self.assertTrue('external_id' in advisor)
-            self.assertTrue('first_name' in advisor)
-            self.assertTrue('last_name' in advisor)
-            self.assertTrue('email' in advisor)
-            self.assertTrue('all_clients_privilege' in advisor)
+            product = response.data
+            self.assertTrue('id' in product)
+            self.assertTrue('uuid' in product)
+            self.assertTrue('name' in product)
+            self.assertTrue('type' in product)
+            self.assertTrue('price' in product)
+            self.assertTrue('status' in product)
+            self.assertTrue('created_by' in product)
+            self.assertTrue('updated_by' in product)
+            self.assertTrue('created_at' in product)
+            self.assertTrue('updated_at' in product)
         else:
             print('UNAUTHORIZED')
 
-    def test_advisor_update_with_grant_permission(self):
+    def test_create_product(self):
         """
-        Ensure advisor details can be updated.
-        Ensure regular advisor can be granted permission to see al company advisors clients.
+        Ensure product can be created.
         """
 
-        url = reverse('advisor_details', kwargs={'advisor_id': self.advisor_id})
+        url = reverse('product_create')
         mock_data = {
-            "external_id": '2456',
-            "all_clients_privilege": True
-        }
-
-        response = self.client.put(url, mock_data, format='json')
-        self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED])
-        updated_advisor = AwAdvisor.objects.get(pk=self.advisor_id)
-        permissions = [settings.VIEW_COMPANY_ADVISORS_CLIENTS]
-
-        if response.status_code != status.HTTP_401_UNAUTHORIZED:
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            advisor = response.data
-            self.assertEqual(mock_data['external_id'], str(advisor['external_id']))
-            self.assertEqual(mock_data['all_clients_privilege'], advisor['all_clients_privilege'])
-
-            if hasattr(updated_advisor, 'user') and updated_advisor.user is not None:
-                self.assertTrue(updated_advisor.user.has_perms(permissions))
-        else:
-            print('UNAUTHORIZED')
-
-    def test_advisor_update_with_remove_permission(self):
-        """
-        Ensure advisor details can be updated.
-        Ensure regular advisor permission can be restricted from seeing all company advisors clients.
-        """
-
-        url = reverse('advisor_details', kwargs={'advisor_id': self.advisor_id})
-        mock_data = {
-            'first_name': 'test',
-            'last_name': 'another_test',
-            'all_clients_privilege': False
-        }
-
-        response = self.client.put(url, mock_data, format='json')
-        self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED])
-        updated_advisor = AwAdvisor.objects.get(pk=self.advisor_id)
-        permissions = [settings.VIEW_COMPANY_ADVISORS_CLIENTS]
-
-        if response.status_code != status.HTTP_401_UNAUTHORIZED:
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            advisor = response.data
-            self.assertEqual(mock_data['first_name'], str(advisor['first_name']))
-            self.assertEqual(mock_data['last_name'], str(advisor['last_name']))
-            self.assertEqual(mock_data['all_clients_privilege'], advisor['all_clients_privilege'])
-
-            if hasattr(updated_advisor, 'user') and updated_advisor.user is not None:
-                self.assertFalse(updated_advisor.user.has_perms(permissions))
-        else:
-            print('UNAUTHORIZED')
-
-    def test_create_advisor(self):
-        """
-        Ensure advisor can be created.
-        """
-
-        url = reverse('advisor_register')
-        mock_data = {
-            'first_name': 'test',
-            'last_name': 'another_test',
-            'email': 'test@test.com',
-            'all_clients_privilege': True
+            'name': 'test',
+            'type': 'SP',
+            'price': 500,
         }
 
         response = self.client.post(url, mock_data, format='json')
@@ -155,10 +99,9 @@ class AdvisorManagementTests(APITestCase):
 
         if response.status_code != status.HTTP_401_UNAUTHORIZED:
             self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-            advisor = response.data
-            self.assertEqual(mock_data['first_name'], str(advisor['first_name']))
-            self.assertEqual(mock_data['last_name'], str(advisor['last_name']))
-            self.assertEqual(mock_data['all_clients_privilege'], True)
-            self.assertEqual(mock_data['email'], advisor['email'])
+            product = response.data
+            self.assertEqual(mock_data['name'], str(product['name']))
+            self.assertEqual(mock_data['type'], str(product['type']))
+            self.assertEqual(float(mock_data['price']), float(product['price']))
         else:
             print('UNAUTHORIZED')

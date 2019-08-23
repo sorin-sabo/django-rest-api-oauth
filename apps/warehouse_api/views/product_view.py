@@ -67,12 +67,14 @@ class ProductDetails(generics.RetrieveUpdateDestroyAPIView):
         """
         Product details.
 
+        ```
         :param Request request: client request with authorization token in header
         :param dict args: Additional arguments passed
         :param dict kwargs: Additional keyword arguments passed
         :return: Firm product requested
         :raise: 404 error in case firm admin doesn't have access to product data (product not found)
         :raise: 400 error in case product id query parameter is not provided
+        ```
         """
 
         response = super().get(request, *args, **kwargs)
@@ -146,3 +148,74 @@ class ExternalProductDetails(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return Product.objects.get_by_uuid(self.kwargs.get('product_uuid'))
+
+    def get(self, request, *args, **kwargs):
+        """
+        External product details.
+
+        ```
+        :param Request request: client request with authorization token in header
+        :param dict args: Additional arguments passed
+        :param dict kwargs: Additional keyword arguments passed
+        :return: Firm product requested
+        :raise: 404 error in case firm admin doesn't have access to product data (product not found)
+        :raise: 400 error in case product id query parameter is not provided
+        ```
+        """
+
+        response = super().get(request, *args, **kwargs)
+
+        return response
+
+    def put(self, request, *args, **kwargs):
+        """
+        Update external product.
+
+        ```
+        :param Request request: client request with authorization token in header
+        :param dict args: Additional arguments passed
+        :param dict kwargs: Additional keyword arguments passed
+        :return: Firm product updated
+        :raise: 404 error in case firm admin doesn't have access to product data (product not found)
+        :raise: 400 error in case product id query parameter is not provided
+        ```
+        """
+
+        response = super().put(request, *args, **kwargs)
+
+        return response
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Partial update ext. product.
+
+        ```
+        :param Request request: client request with authorization token in header
+        :param dict args: Additional arguments passed
+        :param dict kwargs: Additional keyword arguments passed
+        :raise: 404 error in case firm admin doesn't have access to product data (product not found)
+        :raise: 400 error in case product id query parameter is not provided
+        ```
+        """
+
+        response = super().patch(request, *args, **kwargs)
+
+        return response
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete external product.
+
+        ```
+        :param Request request: client request with authorization token in header
+        :param dict args: Additional arguments passed
+        :param dict kwargs: Additional keyword arguments passed
+        :return: Empty response with status 204
+        :raise: 404 error in case firm admin doesn't have access to product data (product not found)
+        :raise: 400 error in case product id query parameter is not provided
+        ```
+        """
+
+        response = super().delete(request, *args, **kwargs)
+
+        return response

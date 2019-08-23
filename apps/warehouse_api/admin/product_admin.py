@@ -5,24 +5,19 @@ from django.contrib import admin
 class ProductAdmin(admin.ModelAdmin):
     fieldsets = (
         ('General information', {
-            'fields': ('external_id', 'first_name', 'last_name', 'email')
-        }),
-        ('Advisor profile', {
-            'fields': ('user', 'firm',)
+            'fields': ('uuid', 'name', 'type', 'price')
         }),
         ('Status', {
-            'fields': ('is_active',)
-        }),
-        ('Privileges', {
-            'fields': ('all_clients_privilege',)
+            'fields': ('status',)
         }),
         ('Audit data', {
             'fields': ('created_at', 'updated_at', 'created_by', 'updated_by')
         })
     )
 
-    list_display = ('full_name', 'email', 'user', 'firm', 'clients_privilege', 'created_at')
-    search_fields = ['first_name', 'last_name', 'email']
-    ordering = ('first_name',)
+    list_display = ('name', 'type', 'price', 'status', 'created_at')
+    search_fields = ['name', 'price']
+    list_filter = ['type']
+    ordering = ('name', 'price', 'created_at')
 
-    readonly_fields = ['id', 'external_id', 'created_at', 'updated_at', 'created_by', 'updated_by']
+    readonly_fields = ['id', 'uuid', 'created_at', 'updated_at', 'created_by', 'updated_by']

@@ -48,7 +48,7 @@ class Product(AuditedModel):
 
     # META CLASS
     class Meta:
-        db_table = "products"
+        db_table = "product"
         app_label = "warehouse_api"
         verbose_name = "Product"
         verbose_name_plural = "Products"
