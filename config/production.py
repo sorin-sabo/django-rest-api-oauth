@@ -151,7 +151,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'apps.api',
-    'apps.crud_api',
+    'apps.warehouse_api',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

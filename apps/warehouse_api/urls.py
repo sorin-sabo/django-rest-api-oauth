@@ -2,7 +2,7 @@
 from django.urls import path
 
 # local api
-from apps.crud_api import views
+from apps.warehouse_api import views
 
 
 urlpatterns = [

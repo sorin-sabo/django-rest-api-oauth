@@ -2,7 +2,7 @@
 from django_filters import rest_framework as filters
 
 # local django
-from apps.crud_api.models import Product
+from apps.warehouse_api.models import Product
 
 
 class MyCharFilter(filters.CharFilter):

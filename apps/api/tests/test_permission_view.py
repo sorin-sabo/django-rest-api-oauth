@@ -22,6 +22,9 @@ class PermissionsTests(APITestCase):
         filters = dict(id=6)  # Change this if you test a specific user
         self.user = User.objects.filter(**filters).first()
 
+    def tearDown(self):
+        self.client.logout()
+
     def test_permissions_list(self):
         """
         Ensure we can get permissions list with details
@@ -35,8 +38,6 @@ class PermissionsTests(APITestCase):
         url = reverse('system_permissions')
         response = self.client.get(url, format='json')
         permissions = self.user.get_all_permissions()
-
-        print('permissions', permissions)
 
         self.assertIn(response.status_code, [status.HTTP_200_OK, status.HTTP_401_UNAUTHORIZED])
 

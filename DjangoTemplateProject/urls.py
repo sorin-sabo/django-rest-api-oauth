@@ -30,8 +30,9 @@ from django_otp.admin import OTPAdminSite
 # local api
 from apps.api.permissions.custom_permissions import CanSeeApiDocs
 from rest_framework.authentication import SessionAuthentication
+from django.apps import apps
 
-
+apps.get_app_config('otp_totp').verbose_name = 'Two Factor Authentication'
 admin.site.site_header = "API administration"
 admin.site.site_title = "API administration"
 admin.site.index_title = "Template API Administration"
@@ -73,7 +74,7 @@ urlpatterns = [
     # CRUD API
     path(
         route='api/product/',
-        view=include('apps.crud_api.urls'),
-        name='crud_api'
+        view=include('apps.warehouse_api.urls'),
+        name='warehouse_api'
     ),
 ]

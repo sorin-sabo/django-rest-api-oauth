@@ -6,13 +6,13 @@ from rest_framework import generics
 from rest_framework.request import Request
 
 # local django
-from apps.crud_api.models import Product
-from apps.crud_api.serializers import (
+from apps.warehouse_api.models import Product
+from apps.warehouse_api.serializers import (
     ProductSerializer,
     BasicProductSerializer,
     ExternalProductSerializer,
 )
-from apps.crud_api.filters import ProductFilter
+from apps.warehouse_api.filters import ProductFilter
 
 from drf_yasg.utils import swagger_auto_schema
 

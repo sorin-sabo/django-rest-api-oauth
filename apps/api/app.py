@@ -5,4 +5,4 @@ from django.utils.translation import ugettext_lazy as _
 
 class MainApiConfig(AppConfig):
     name = 'apps.api'
-    verbose_name = _('Configuration')
+    verbose_name = _('User Management')

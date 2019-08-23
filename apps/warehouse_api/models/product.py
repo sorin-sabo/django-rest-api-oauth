@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # local api
 from apps.api.models import AuditedModel
-from apps.crud_api.managers import ProductManager
+from apps.warehouse_api.managers import ProductManager
 
 
 class Product(AuditedModel):
@@ -49,7 +49,7 @@ class Product(AuditedModel):
     # META CLASS
     class Meta:
         db_table = "products"
-        app_label = "crud_api"
+        app_label = "warehouse_api"
         verbose_name = "Product"
         verbose_name_plural = "Products"
 

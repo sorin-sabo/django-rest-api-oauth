@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 # local api
-from apps.crud_api.models import Product
+from apps.warehouse_api.models import Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
