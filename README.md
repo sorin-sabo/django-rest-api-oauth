@@ -78,3 +78,7 @@ Run command:
 
 - Admin design documentation:
     * [Django Admin Cookbook](https://buildmedia.readthedocs.org/media/pdf/django-admin-cookbook/latest/django-admin-cookbook.pdf)
+
+## Useful commands
+    python manage.py dumpdata --format=json api > apps/api/fixtures/initial_data.json
+    python manage.py loaddata initial_data.json

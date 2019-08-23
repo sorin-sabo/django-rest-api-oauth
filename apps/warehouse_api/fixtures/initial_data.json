@@ -1,0 +1,32 @@
+[
+  {
+    "model": "warehouse_api.product",
+    "pk": 6,
+    "fields": {
+      "created_by": null,
+      "updated_by": null,
+      "created_at": "2019-08-23T11:50:46.292Z",
+      "updated_at": "2019-08-23T13:06:02.250Z",
+      "uuid": "a8bf5a88-2ad1-4109-8559-6b7e3193e7cb",
+      "name": "iPhone 7",
+      "type": "SP",
+      "price": "700.00",
+      "status": false
+    }
+  },
+  {
+    "model": "warehouse_api.product",
+    "pk": 7,
+    "fields": {
+      "created_by": 6,
+      "updated_by": 6,
+      "created_at": "2019-08-23T12:42:54.376Z",
+      "updated_at": "2019-08-23T12:42:54.376Z",
+      "uuid": "ba443348-93a0-46b7-9bf3-4c0ac6c923f2",
+      "name": "iPhone Xs + Orange 10",
+      "type": "BP",
+      "price": "500.00",
+      "status": true
+    }
+  }
+]

@@ -29,6 +29,11 @@ DATABASES = {
         }
     }
 }
+
+FIXTURE_DIRS = (
+    'apps/api/fixtures/',
+    'apps/warehouse_api/fixtures/',
+)
 # ---------------------------------------------- END DATABASE CONFIGURATION --------------------------------------------
 
 
