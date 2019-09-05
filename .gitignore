@@ -1,6 +1,6 @@
 venv/*
 static/*
-config/local.py
+DjangoTemplateProject/settings/environments/local.py
 
 ### Python ###
 __pycache__/
