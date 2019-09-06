@@ -121,6 +121,7 @@ class TokenValidator:
                 algorithms=[self.jwt_algorithm],
             )
         except (jwt.InvalidTokenError, jwt.ExpiredSignature, jwt.DecodeError) as exc:
+            print('Error on decode')
             raise TokenError(str(exc))
 
         if is_guest and self.jwt_client is not None:

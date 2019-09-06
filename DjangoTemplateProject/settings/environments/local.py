@@ -38,6 +38,8 @@ DATABASES = {
     }
 }
 
-AUTH_DOMAIN = ''
-JWT_ISSUER = ''
-JWT_CLIENT = ''
+AUTH_DOMAIN = 'https://sorin-dev.eu.auth0.com'
+JWT_ISSUER = 'https://sorin-dev.eu.auth0.com/'
+JWT_CLIENT = 'https://django-template-auth'
+
+SECRET_KEY = 'o%=segxp&to^lth4m82lq!=%vltk#2t4!ytjd)zj4z-i(z9-q9'
