@@ -8,11 +8,11 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 
     # Admin panel
-    'jet.dashboard',
-    'jet',
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
 
-    # Admin security
+    # Admin two factor authentication
     'django_otp',
     'django_otp.plugins.otp_totp',
 ]
@@ -21,7 +21,7 @@ THIRD_PARTY_APPS = [
     # Rest
     'rest_framework',
 
-    # Cognito Auth
+    # Django API docs
     'drf_yasg',
 
     # Cors

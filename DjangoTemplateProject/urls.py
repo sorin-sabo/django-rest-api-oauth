@@ -35,7 +35,7 @@ from django.apps import apps
 apps.get_app_config('otp_totp').verbose_name = 'Two Factor Authentication'
 admin.site.site_header = "API administration"
 admin.site.site_title = "API administration"
-admin.site.index_title = "Template API Administration"
+admin.site.index_title = "Rest API Administration"
 admin.site.site_url = "/docs"
 admin.site.__class__ = OTPAdminSite
 
@@ -43,7 +43,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Django Template API",
         default_version='v1.0',
-        description="Django 2.2.4 api",
+        description="Django 3.2 Rest API",
         contact=openapi.Contact(email="sabo.sorin@ymail.com"),
     ),
     validators=['flex'],
@@ -53,8 +53,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')),
-    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
 
     # API DOCUMENTATION

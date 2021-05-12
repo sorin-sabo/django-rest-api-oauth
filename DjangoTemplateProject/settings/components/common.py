@@ -111,6 +111,7 @@ SERVER_EMAIL = 'noreply@site.com'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # ---------------------------------------------- SECURITY CONFIGURATION ------------------------------------------------
 # Using a secure-only session cookie makes it more difficult for network traffic sniffers to hijack user sessions.

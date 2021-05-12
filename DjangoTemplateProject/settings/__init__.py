@@ -13,7 +13,6 @@ base_settings = [
     'components/database.py',
     'components/oauth2.py',
     'components/documentation.py',
-    'components/jet.py',
 
     # Select the right environment:
     'environments/{0}.py'.format(ENV),
